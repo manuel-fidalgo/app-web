@@ -52,10 +52,10 @@ body{
 	width: 60%;
 	height: 150px;
 	resize: none;
-	/*border: none;*/
-	/*display: none;*/
+	/*border: 1px lightblue;*/
+	display: none;
 }
-#button{
+#submit-button{
 	color: white;
 	background-color: #003996;
 	border: none;

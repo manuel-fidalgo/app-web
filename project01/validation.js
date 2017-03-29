@@ -1,40 +1,49 @@
 $(document).ready(function(){
-
-	//Also could we use .changed() instead of
+	//instead of .changed() 
 	$('.tipo1:first').click(function(){
-		if($('.tipo1:first').is(":checked")){
-			$('.tipo1').prop('checked', true);
-		}else{
-			$('.tipo1').prop('checked', false);
-		}
+		$('.tipo1').prop('checked', $('.tipo1:first').is(':checked'));
 	});
 
 	$('.tipo2:first').click(function(){
-		if($('.tipo2:first').is(":checked")){
-			$('.tipo2').prop('checked', true);
-		}else{
-			$('.tipo2').prop('checked', false);
-		}
+		$('.tipo2').prop('checked', $('.tipo2:first').is(':checked'));
 	});
 
 	$('.tipo3:first').click(function(){
-		if($('.tipo3:first').is(":checked")){
-			$('.tipo3').prop('checked', true);
-		}else{
-			$('.tipo3').prop('checked', false);
-		}
+		$('.tipo3').prop('checked', $('.tipo3:first').is(':checked'));
 	});
     //When any checkbox changes
-    $('input:checkbox').change(function(){ //Writes all the cheked checkboxes
+    $('input:checkbox').change(function(){ //Writes all the checked checkboxes
     	$('#textarea').val("");
-    	var names = getNameAllChecked();
-    	$('#textarea').val(names.join("\n"));
+    	$('#textarea').val(getNameAllChecked());
+    	if(getNameAllChecked().length==0) 
+    		$('#textarea').hide("fast") 
+    	else 
+    		$('#textarea').show("fast");
+    });
+
+    $("#submit-button").click(function(){
+
+    	if($("input.sb:checkbox").prop("checked")) //BUG HERE
+    		submitForm();
+    	else
+    		alert("Debe selecionar almenos un item."); 
     });
 });
+function submitForm() {
 
+	// body...
+}
 function getNameAllChecked() {
 	var array = $('input.sb:checkbox:checked').map(function(){
 		return $(this).val();
 	}).get();
-	return array.sort();
+	return array.sort().join("\n");
 }
+
+/*
+if($('.tipo1:first').is(":checked")){
+	$('.tipo1').prop('checked', true);
+}else{
+	$('.tipo1').prop('checked', false);
+}
+*/
