@@ -49,6 +49,8 @@ body{
 #textarea{
 	margin: 10px;
 	margin-left: 30px;
+	margin-right: 0px;
+	padding-right: 0px;
 	width: 60%;
 	height: 150px;
 	resize: none;
