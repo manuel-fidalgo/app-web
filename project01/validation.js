@@ -24,7 +24,7 @@ $(document).ready(function(){
     });
     $("#submit-button").click(function(){ //Submits the form
     	if($('input.sb:checkbox:checked').length !=0)
-    		$('#form').submit();
+    		event.preventDefault();
     	else
     		alert("Debe selecionar almenos un item."); 
     });
