@@ -1,0 +1,11 @@
+*{
+	font-family: Arial;
+}
+body{
+	margin: 0px;
+}
+#title{
+	color: blue;
+	margin: auto;
+	width: 50%;
+}
