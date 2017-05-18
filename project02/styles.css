@@ -1,0 +1,46 @@
+*{
+	font-family: Arial;
+}
+body{
+	margin: 0;
+}
+#title{
+	color: rgb(66, 134, 244);
+	margin-left: 170px;
+	width: 50%;
+}
+#selector{
+	width: 100%;
+	border-color: grey;
+	border-style: solid;
+}
+#choosedest{
+	background-color: rgb(230,230,230);
+}
+/*Style for all the borders*/
+.bordered{
+	padding: 20px;
+	border: 2px;
+	border-style: solid;
+	border-color: grey;
+	margin: 20px;
+	width: 40%;
+}
+
+#submit-button{
+	margin: auto;
+}
+div{
+    padding: 10px;
+}
+label {
+    display: inline-block;
+    width: 90px;
+    text-align: right;
+}
+#chooseseats{
+    display: none;
+}
+#clientdata{
+	display: none;
+}
