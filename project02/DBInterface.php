@@ -5,41 +5,40 @@ $GET_DEST_TABLE = "GET_DEST_TABLE";
 $GET_SEATS_TABLE = "GET_SEATS_TABLE";
 $ADD_OCCUPED_SEATS = "ADD_OCCUPED_SEATS";
 
-//Global varabiable
-$GLOBALS['conn'] = NULL;
+$conn = NULL;
 
 //Manages each ajax call
 if(isset($_POST['action']) && !empty($_POST['action'])) {
 	$action = $_POST['action'];
 	switch($action) {
-		case $GET_DEST_TABLE : GetDestTable(); break;
-		case $GET_SEATS_TABLE: GetOcupiedSeats($_POST['city']); break;
-		case $ADD_OCCUPED_SEATS: AddOcupuesSeats($_POST['city'],$_POST['dni'],$_POST['dests']); break;
+		case $GET_DEST_TABLE : GetDestTable($conn); break;
+		case $GET_SEATS_TABLE: GetOccSeats($_POST['city'],$conn); break;
+		case $ADD_OCCUPED_SEATS: AddOccSeats($_POST['city'],$_POST['dni'],$_POST['dests'],$conn); break;
 	}
 }
 
-/*Connects with the DB*/
-function Connect()
+/*Connects with the database*/
+function Connect($conn)
 {
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
 	$databasename = "busseatsmanager";
 
-	$GLOBALS['conn'] = new mysqli($servername, $username, $password, $databasename);
+	$conn = new mysqli($servername, $username, $password, $databasename);
 
 	// Check connection
-	if ($GLOBALS['conn']->connect_error) {
-		die("Connection failed: " . $GLOBALS['conn']->connect_error);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
 	} 
 }
-/*Gets and JSon with all the dest table*/
-function GetDestTable()
+/*Gets the dest table and encoges the table into JSON formact*/
+function GetDestTable($conn)
 {
-	Connect();
+	Connect($conn);
 
 	$sql = "SELECT * FROM destinations";
-	$result = $GLOBALS['conn']->query($sql);
+	$result = $conn->query($sql);
 	$return_arr = array();
 
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -48,17 +47,17 @@ function GetDestTable()
 
 	echo json_encode($return_arr);
 
-	CloseConn();
+	CloseConn($conn);
 }
 
 //Takes as parameter
-function GetOcupiedSeats($cityname)
+function GetOccSeats($cityname,$conn)
 {
-	Connect();
+	Connect($conn);
 
 	//SELECT SEATNO FROM `occupiedseats` WHERE CITY= 'Leon';
 	$sql = "SELECT SEATNO FROM occupiedseats WHERE CITY = '".$cityname."'";
-	$result = $GLOBALS['conn']->query($sql);
+	$result = $conn->query($sql);
 	$return_arr = array();
 
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -66,32 +65,32 @@ function GetOcupiedSeats($cityname)
 	}
 	echo json_encode($return_arr);
 
-	CloseConn();
+	CloseConn($conn);
 }
 
 //INSERT INTO `occupiedseats`(`CITY`, `SEATNO`, `NIF`) VALUES ('',0,'');
-function AddOcupuesSeats($cityname, $nif, $dest){
+function AddOccSeats($cityname, $nif, $dest, $conn){
 	
-	Connect();
+	Connect($conn);
 	$destinations = json_decode(stripslashes($dest));
 	foreach ($destinations as $d) {
 		$sql = "INSERT INTO occupiedseats(CITY, SEATNO,NIF) VALUES ('".$cityname."',".$d.",'".$nif."')";
 
-		if ($GLOBALS['conn']->query($sql) === TRUE) {
+		if ($conn->query($sql) === TRUE) {
 			echo "Added seat".$d;
 		} else {
 			echo "Error: " . $sql . " -- " . $conn->error;
 		}
 	}
 	echo json_encode(1);
-	CloseConn();
+	CloseConn($conn);
 }
 
 
-//Closes connection.
-function CloseConn()
+//Close connection.
+function CloseConn($conn)
 {
-	$GLOBALS['conn']->close();
+	$conn->close();
 }
 
 
