@@ -108,10 +108,10 @@ $(document).ready(function(){
 					dests : JSON.stringify(selectedseats_ids),
 				},
 				success: function(data) {
-					if(true){
-						alert("Reserva con exito");
+					if(selectedseats == data){
+						alert("Reservadas con exito " + data + "plazas.");
 					}else{
-						alert("Solo se han reservado "+(selected_dest-data)+" plazas.");
+						alert("Solo se han reservado " + data + " plazas.");
 					}
 				},
 				error: function(){

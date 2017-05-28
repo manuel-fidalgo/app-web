@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2017 a las 11:02:41
+-- Tiempo de generación: 21-05-2017 a las 13:44:11
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -57,21 +57,6 @@ CREATE TABLE `occupiedseats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `occupiedseats`
---
-
-INSERT INTO `occupiedseats` (`CITY`, `SEATNO`, `NIF`) VALUES
-('Leon', 1, 'asdf'),
-('Leon', 9, 'asdf'),
-('Leon', 10, 'asdf'),
-('Leon', 11, 'asdf'),
-('Leon', 12, 'asdf'),
-('Leon', 17, 'asdf'),
-('Leon', 18, 'asdf'),
-('Leon', 19, 'asdf'),
-('Leon', 20, 'asdf');
-
---
 -- Índices para tablas volcadas
 --
 
@@ -80,6 +65,12 @@ INSERT INTO `occupiedseats` (`CITY`, `SEATNO`, `NIF`) VALUES
 --
 ALTER TABLE `destinations`
   ADD PRIMARY KEY (`CITY`);
+
+--
+-- Indices de la tabla `occupiedseats`
+--
+ALTER TABLE `occupiedseats`
+  ADD PRIMARY KEY (`CITY`,`SEATNO`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
